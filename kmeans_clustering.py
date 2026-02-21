@@ -3,12 +3,20 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 from sklearn.datasets import load_iris
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+
+
+# Create outputs folder if it doesn't exist
+outputs_folder = "outputs"
+if not os.path.exists(outputs_folder):
+    os.makedirs(outputs_folder)
+    print(f"\nCreated '{outputs_folder}' folder for saving outputs...")
 
 
 #  Load Dataset
@@ -47,7 +55,7 @@ plt.plot(K_range, inertia, marker='o')
 plt.title("Elbow Method")
 plt.xlabel("Number of Clusters (K)")
 plt.ylabel("Inertia")
-plt.savefig("elbow_curve.png")
+plt.savefig(os.path.join(outputs_folder, "elbow_curve.png"))
 plt.show()
 
 
@@ -70,7 +78,7 @@ plt.plot(K_range, silhouette_scores, marker='o')
 plt.title("Silhouette Score vs K")
 plt.xlabel("Number of Clusters (K)")
 plt.ylabel("Silhouette Score")
-plt.savefig("silhouette_scores.png")
+plt.savefig(os.path.join(outputs_folder, "silhouette_scores.png"))
 plt.show()
 
 # Best K
@@ -115,7 +123,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1], c=labels_plus)
 plt.title("K-Means Clusters (PCA 2D)")
 plt.xlabel("Principal Component 1")
 plt.ylabel("Principal Component 2")
-plt.savefig("kmeans_clusters_pca.png")
+plt.savefig(os.path.join(outputs_folder, "kmeans_clusters_pca.png"))
 plt.show()
 
 
@@ -130,13 +138,20 @@ cluster_profile = df.groupby("Cluster").mean()
 print("\nCluster Profile Statistics:")
 print(cluster_profile)
 
-cluster_profile.to_csv("cluster_profiles.csv")
+# Save cluster profiles to outputs folder
+cluster_profile.to_csv(os.path.join(outputs_folder, "cluster_profiles.csv"))
 
 
 #  Save Cluster Assignments
 
 print("\nSaving clustered dataset...")
 
-df.to_csv("kmeans_clustered_data.csv", index=False)
+df.to_csv(os.path.join(outputs_folder, "kmeans_clustered_data.csv"), index=False)
 
+print(f"\nAll outputs saved to the '{outputs_folder}' folder:")
+print(f"  - {outputs_folder}/elbow_curve.png")
+print(f"  - {outputs_folder}/silhouette_scores.png")
+print(f"  - {outputs_folder}/kmeans_clusters_pca.png")
+print(f"  - {outputs_folder}/cluster_profiles.csv")
+print(f"  - {outputs_folder}/kmeans_clustered_data.csv")
 print("\n K-Means Clustering Task Completed Successfully!")
