@@ -3,12 +3,12 @@ Week 6 - Task 6.2
 Hierarchical Clustering & Dendrograms
 
 Features:
-✔ Agglomerative Clustering
-✔ Dendrogram visualization
-✔ Multiple linkage comparison
-✔ PCA cluster visualization
-✔ Comparison with K-Means
-✔ Silhouette score evaluation
+Agglomerative Clustering
+Dendrogram visualization
+Multiple linkage comparison
+PCA cluster visualization
+Comparison with K-Means
+Silhouette score evaluation
 """
 
 
