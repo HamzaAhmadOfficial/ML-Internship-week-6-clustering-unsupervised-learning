@@ -3,13 +3,13 @@ Week 6 - Task 6.3
 DBSCAN & Density-Based Clustering
 
 Features:
-✔ DBSCAN clustering
-✔ eps & min_samples experimentation
-✔ Noise point detection
-✔ Arbitrary-shaped dataset
-✔ Visualization
-✔ K-Means comparison
-✔ Cluster statistics
+DBSCAN clustering
+eps & min_samples experimentation
+Noise point detection
+Arbitrary-shaped dataset
+Visualization
+K-Means comparison
+Cluster statistics
 """
 
 
@@ -18,12 +18,20 @@ Features:
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 from sklearn.datasets import make_moons
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import DBSCAN, KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
+
+
+# Create outputs folder if it doesn't exist
+outputs_folder = "outputs"
+if not os.path.exists(outputs_folder):
+    os.makedirs(outputs_folder)
+    print(f"\nCreated '{outputs_folder}' folder for saving outputs...")
 
 
 #  Create Dataset (Non-Spherical)
@@ -74,7 +82,7 @@ results_df = pd.DataFrame(
     columns=["eps", "min_samples", "clusters", "silhouette_score"]
 )
 
-results_df.to_csv("dbscan_parameter_results.csv", index=False)
+results_df.to_csv(os.path.join(outputs_folder, "dbscan_parameter_results.csv"), index=False)
 
 
 #  Choose Best Parameters
@@ -109,7 +117,7 @@ plt.scatter(
 )
 plt.title("DBSCAN Clustering")
 plt.legend()
-plt.savefig("dbscan_clusters.png")
+plt.savefig(os.path.join(outputs_folder, "dbscan_clusters.png"))
 plt.show()
 
 
@@ -138,7 +146,7 @@ plt.subplot(1, 2, 2)
 plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=kmeans_labels)
 plt.title("K-Means")
 
-plt.savefig("dbscan_vs_kmeans.png")
+plt.savefig(os.path.join(outputs_folder, "dbscan_vs_kmeans.png"))
 plt.show()
 
 
@@ -163,7 +171,7 @@ df = pd.DataFrame(X_scaled, columns=["Feature_1", "Feature_2"])
 df["DBSCAN_Cluster"] = db_labels
 df["KMeans_Cluster"] = kmeans_labels
 
-df.to_csv("dbscan_clustering_results.csv", index=False)
+df.to_csv(os.path.join(outputs_folder, "dbscan_clustering_results.csv"), index=False)
 
 
 #  Documentation Output
@@ -171,14 +179,19 @@ df.to_csv("dbscan_clustering_results.csv", index=False)
 print("\nWhen to Use DBSCAN vs K-Means:")
 print("""
 DBSCAN Works Better When:
-✔ Clusters have irregular shapes
-✔ Dataset contains noise/outliers
-✔ Number of clusters is unknown
+- Clusters have irregular shapes
+- Dataset contains noise/outliers
+- Number of clusters is unknown
 
 K-Means Works Better When:
-✔ Clusters are spherical
-✔ Dataset has low noise
-✔ Fast computation is required
+- Clusters are spherical
+- Dataset has low noise
+- Fast computation is required
 """)
 
+print(f"\nAll outputs saved to the '{outputs_folder}' folder:")
+print(f"  - {outputs_folder}/dbscan_parameter_results.csv")
+print(f"  - {outputs_folder}/dbscan_clusters.png")
+print(f"  - {outputs_folder}/dbscan_vs_kmeans.png")
+print(f"  - {outputs_folder}/dbscan_clustering_results.csv")
 print("\n DBSCAN Clustering Task Completed Successfully!")
