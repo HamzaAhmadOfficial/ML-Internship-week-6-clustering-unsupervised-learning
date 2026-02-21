@@ -3,12 +3,12 @@ Week 6 - Task 6.4
 Dimensionality Reduction (PCA & t-SNE)
 
 Features:
-✔ PCA dimensionality reduction
-✔ Explained variance visualization
-✔ PCA 2D & 3D visualization
-✔ t-SNE visualization
-✔ Classification comparison
-✔ Accuracy & training time evaluation
+- PCA dimensionality reduction
+- Explained variance visualization
+- PCA 2D & 3D visualization
+- t-SNE visualization
+- Classification comparison
+- Accuracy & training time evaluation
 """
 
 
@@ -18,6 +18,7 @@ import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 from sklearn.datasets import load_digits
 from sklearn.preprocessing import StandardScaler
@@ -28,6 +29,13 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
 from mpl_toolkits.mplot3d import Axes3D
+
+
+# Create outputs folder if it doesn't exist
+outputs_folder = "outputs"
+if not os.path.exists(outputs_folder):
+    os.makedirs(outputs_folder)
+    print(f"\nCreated '{outputs_folder}' folder for saving outputs...")
 
 
 #  Load High-Dimensional Dataset
@@ -60,7 +68,7 @@ plt.plot(pca_50.explained_variance_ratio_)
 plt.title("Explained Variance Ratio (PCA Components)")
 plt.xlabel("Component")
 plt.ylabel("Variance Ratio")
-plt.savefig("pca_explained_variance.png")
+plt.savefig(os.path.join(outputs_folder, "pca_explained_variance.png"))
 plt.show()
 
 
@@ -71,7 +79,7 @@ plt.plot(np.cumsum(pca_50.explained_variance_ratio_))
 plt.title("Cumulative Explained Variance")
 plt.xlabel("Number of Components")
 plt.ylabel("Cumulative Variance")
-plt.savefig("pca_cumulative_variance.png")
+plt.savefig(os.path.join(outputs_folder, "pca_cumulative_variance.png"))
 plt.show()
 
 
@@ -87,7 +95,7 @@ plt.scatter(X_pca_2d[:, 0], X_pca_2d[:, 1], c=y)
 plt.title("PCA 2D Visualization")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
-plt.savefig("pca_2d.png")
+plt.savefig(os.path.join(outputs_folder, "pca_2d.png"))
 plt.show()
 
 
@@ -102,7 +110,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(X_pca_3d[:, 0], X_pca_3d[:, 1], X_pca_3d[:, 2], c=y)
 ax.set_title("PCA 3D Visualization")
-plt.savefig("pca_3d.png")
+plt.savefig(os.path.join(outputs_folder, "pca_3d.png"))
 plt.show()
 
 
@@ -116,7 +124,7 @@ X_tsne = tsne.fit_transform(X_scaled)
 plt.figure()
 plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=y)
 plt.title("t-SNE Visualization")
-plt.savefig("tsne_2d.png")
+plt.savefig(os.path.join(outputs_folder, "tsne_2d.png"))
 plt.show()
 
 
@@ -167,6 +175,13 @@ results = pd.DataFrame({
     "Training Time": [train_time_original, train_time_pca]
 })
 
-results.to_csv("dimensionality_reduction_results.csv", index=False)
+results.to_csv(os.path.join(outputs_folder, "dimensionality_reduction_results.csv"), index=False)
 
+print(f"\nAll outputs saved to the '{outputs_folder}' folder:")
+print(f"  - {outputs_folder}/pca_explained_variance.png")
+print(f"  - {outputs_folder}/pca_cumulative_variance.png")
+print(f"  - {outputs_folder}/pca_2d.png")
+print(f"  - {outputs_folder}/pca_3d.png")
+print(f"  - {outputs_folder}/tsne_2d.png")
+print(f"  - {outputs_folder}/dimensionality_reduction_results.csv")
 print("\n Dimensionality Reduction Task Completed Successfully!")
