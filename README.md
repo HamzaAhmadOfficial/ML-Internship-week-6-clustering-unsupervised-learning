@@ -14,7 +14,7 @@ This repository contains implementations of clustering algorithms and dimensiona
   - t-SNE (t-Distributed Stochastic Neighbor Embedding)
 
 ##  Repository Structure
-
+```
 unsupervised-learning-clustering-projects/
 │
 ├── kmeans_clustering.py
@@ -22,7 +22,7 @@ unsupervised-learning-clustering-projects/
 ├── dbscan_clustering.py
 ├── dimensionality_reduction.py
 └── README.md
-
+```
 ##  Installation & Setup
 
 Clone the repository:
