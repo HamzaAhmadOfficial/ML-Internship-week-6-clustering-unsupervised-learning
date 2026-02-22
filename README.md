@@ -22,6 +22,26 @@ unsupervised-learning-clustering-projects/
 ├── dbscan_clustering.py
 ├── dimensionality_reduction.py
 └── README.md
+└── outputs/
+    ├── elbow_curve.png
+    ├── silhouette_scores.png
+    ├── kmeans_clusters_pca.png
+    ├── cluster_profiles.csv
+    ├── kmeans_clustered_data.csv
+    ├── dendrogram_ward.png
+    ├── dendrogram_single.png
+    ├── dendrogram_complete.png
+    ├── dendrogram_average.png
+    ├── hierarchical_vs_kmeans.png
+    ├── dbscan_clusters.png
+    ├── dbscan_vs_kmeans.png
+    ├── dbscan_parameter_results.csv
+    ├── dbscan_clustering_results.csv
+    ├── pca_explained_variance.png
+    ├── pca_cumulative_variance.png
+    ├── pca_2d.png
+    ├── pca_3d.png
+    └── tsne_2d.png
 ```
 ##  Installation & Setup
 
